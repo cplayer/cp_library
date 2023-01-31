@@ -1,0 +1,2 @@
+# CP_LIBRARY
+[![Actions Status](https://github.com/cplayer/cp_library/workflows/verify/badge.svg)](https://github.com/cplayer/cp_library/actions)[![GitHub Pages](https://img.shields.io/static/v1?label=GitHub+Pages&message=+&color=brightgreen&logo=github)](https://cplayer.github.io/cp_library/) 
