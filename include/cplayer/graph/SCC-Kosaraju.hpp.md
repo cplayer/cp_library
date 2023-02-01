@@ -1,85 +1,76 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: include/cplayer/graph/SAT-Kosaraju.hpp
+    title: 2SAT-Kosaraju
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/graph/SAT-Kosaraju.test.cpp
+    title: SAT-Kosaraju
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 1 \"include/cplayer/graph/SCC-Kosaraju.hpp\"\n\n\n\n#include\
-    \ <vector>\n#include <algorithm>\n\nnamespace cplayer\n{\n    class TwoSat\n \
-    \   {\n        explicit TwoSat(const int n) : n(n), graph(n << 1), rgraph(n <<\
-    \ 1),\n                                       isVisited(n << 1), ids(n << 1)\n\
-    \        {\n            order.reserve(n << 1);\n        }\n\n        int negate(const\
-    \ int x) const { return (n + x) % (n << 1); }\n\n        void add_or(const int\
-    \ x, const int y)\n        {\n            graph[negate(x)].emplace_back(y);\n\
-    \            graph[negate(y)].emplace_back(x);\n            rgraph[y].emplace_back(negate(x));\n\
-    \            rgraph[x].emplace_back(negate(y));\n        }\n\n        void add_if(const\
-    \ int x, const int y)\n        {\n            add_or(negate(x), y);\n        }\n\
-    \n        void add_nand(const int x, const int y)\n        {\n            add_or(negate(x),\
-    \ negate(y));\n        }\n\n        void set_true(const int x) { add_or(x, x);\
-    \ }\n        void set_false(const int x) { set_true(negate(x)); }\n\n        std::vector<bool>\
-    \ build()\n        {\n            std::fill(isVisited.begin(), isVisited.end(),\
-    \ false);\n            std::fill(ids.begin(), ids.end(), -1);\n            order.clear();\n\
-    \            for (int i = 0; i < (n << 1); ++i)\n            {\n             \
-    \   if (!isVisited[i])\n                    dfs(i);\n            }\n         \
-    \   for (int i = (n << 1) - 1, id = 0; i >= 0; --i)\n            {\n         \
-    \       if (ids[order[i]] == -1)\n                    rdfs(order[i], id++);\n\
-    \            }\n            std::vector<bool> res(n);\n            for (int i\
-    \ = 0; i < n; ++i)\n            {\n                if (ids[i] == ids[negate(i)])\n\
-    \                    return {};\n                res[i] = ids[negate(i)] < ids[i];\n\
-    \            }\n            return res;\n        }\n\n    private:\n        const\
-    \ int n;\n        std::vector<std::vector<int>> graph, rgraph;\n        std::vector<bool>\
-    \ isVisited;\n        std::vector<int> ids, order;\n\n        void dfs(const int\
-    \ ver)\n        {\n            isVisited[ver] = true;\n            for (const\
-    \ int dst : graph[ver])\n            {\n                if (!isVisited[dst])\n\
-    \                    dfs(dst);\n            }\n            order.emplace_back(ver);\n\
-    \        }\n\n        void rdfs(const int ver, const int cur_id)\n        {\n\
-    \            ids[ver] = cur_id;\n            for (const int dst : rgraph[ver])\n\
-    \            {\n                if (ids[dst] == -1)\n                    rdfs(dst,\
-    \ cur_id);\n            }\n        }\n    };\n} // namespace cplayer\n\n\n"
+    \ <vector>\n#include <algorithm>\n\nnamespace cplayer\n{\n    class Kosaraju_Light\n\
+    \    {\n    public:\n        explicit Kosaraju_Light(const int n) : sccK_n(n),\
+    \ graph(n), rgraph(n),\n                                               isVisited(n),\
+    \ ids(n)\n        {\n            order.reserve(n);\n        }\n\n        inline\
+    \ void add_edge (int st, int ed) {\n            graph[st].emplace_back(ed);\n\
+    \        }\n\n        inline void add_edge_rev (int st, int ed) {\n          \
+    \  rgraph[st].emplace_back(ed);\n        }\n\n        void construct_scc()\n \
+    \       {\n            std::fill(isVisited.begin(), isVisited.end(), false);\n\
+    \            std::fill(ids.begin(), ids.end(), -1);\n            order.clear();\n\
+    \            for (int i = 0; i < sccK_n; ++i)\n            {\n               \
+    \ if (!isVisited[i])\n                    dfs(i);\n            }\n           \
+    \ for (int i = sccK_n - 1, id = 0; i >= 0; --i)\n            {\n             \
+    \   if (ids[order[i]] == -1)\n                    rdfs(order[i], id++);\n    \
+    \        }\n        }\n\n    protected:\n        const int sccK_n;\n        std::vector<std::vector<int>>\
+    \ graph, rgraph;\n        std::vector<bool> isVisited;\n        std::vector<int>\
+    \ ids, order;\n\n        void dfs(const int ver)\n        {\n            isVisited[ver]\
+    \ = true;\n            for (const int dst : graph[ver])\n            {\n     \
+    \           if (!isVisited[dst])\n                    dfs(dst);\n            }\n\
+    \            order.emplace_back(ver);\n        }\n\n        void rdfs(const int\
+    \ ver, const int cur_id)\n        {\n            ids[ver] = cur_id;\n        \
+    \    for (const int dst : rgraph[ver])\n            {\n                if (ids[dst]\
+    \ == -1)\n                    rdfs(dst, cur_id);\n            }\n        }\n \
+    \   };\n} // namespace cplayer\n\n\n"
   code: "#ifndef CPLAYER_SCC_KOSARAJU_H\n#define CPLAYER_SCC_KOSARAJU_H\n\n#include\
-    \ <vector>\n#include <algorithm>\n\nnamespace cplayer\n{\n    class TwoSat\n \
-    \   {\n        explicit TwoSat(const int n) : n(n), graph(n << 1), rgraph(n <<\
-    \ 1),\n                                       isVisited(n << 1), ids(n << 1)\n\
-    \        {\n            order.reserve(n << 1);\n        }\n\n        int negate(const\
-    \ int x) const { return (n + x) % (n << 1); }\n\n        void add_or(const int\
-    \ x, const int y)\n        {\n            graph[negate(x)].emplace_back(y);\n\
-    \            graph[negate(y)].emplace_back(x);\n            rgraph[y].emplace_back(negate(x));\n\
-    \            rgraph[x].emplace_back(negate(y));\n        }\n\n        void add_if(const\
-    \ int x, const int y)\n        {\n            add_or(negate(x), y);\n        }\n\
-    \n        void add_nand(const int x, const int y)\n        {\n            add_or(negate(x),\
-    \ negate(y));\n        }\n\n        void set_true(const int x) { add_or(x, x);\
-    \ }\n        void set_false(const int x) { set_true(negate(x)); }\n\n        std::vector<bool>\
-    \ build()\n        {\n            std::fill(isVisited.begin(), isVisited.end(),\
-    \ false);\n            std::fill(ids.begin(), ids.end(), -1);\n            order.clear();\n\
-    \            for (int i = 0; i < (n << 1); ++i)\n            {\n             \
-    \   if (!isVisited[i])\n                    dfs(i);\n            }\n         \
-    \   for (int i = (n << 1) - 1, id = 0; i >= 0; --i)\n            {\n         \
-    \       if (ids[order[i]] == -1)\n                    rdfs(order[i], id++);\n\
-    \            }\n            std::vector<bool> res(n);\n            for (int i\
-    \ = 0; i < n; ++i)\n            {\n                if (ids[i] == ids[negate(i)])\n\
-    \                    return {};\n                res[i] = ids[negate(i)] < ids[i];\n\
-    \            }\n            return res;\n        }\n\n    private:\n        const\
-    \ int n;\n        std::vector<std::vector<int>> graph, rgraph;\n        std::vector<bool>\
-    \ isVisited;\n        std::vector<int> ids, order;\n\n        void dfs(const int\
-    \ ver)\n        {\n            isVisited[ver] = true;\n            for (const\
-    \ int dst : graph[ver])\n            {\n                if (!isVisited[dst])\n\
-    \                    dfs(dst);\n            }\n            order.emplace_back(ver);\n\
-    \        }\n\n        void rdfs(const int ver, const int cur_id)\n        {\n\
-    \            ids[ver] = cur_id;\n            for (const int dst : rgraph[ver])\n\
-    \            {\n                if (ids[dst] == -1)\n                    rdfs(dst,\
-    \ cur_id);\n            }\n        }\n    };\n} // namespace cplayer\n\n#endif\
-    \ // CPLAYER_SCC_KOSARAJU_H"
+    \ <vector>\n#include <algorithm>\n\nnamespace cplayer\n{\n    class Kosaraju_Light\n\
+    \    {\n    public:\n        explicit Kosaraju_Light(const int n) : sccK_n(n),\
+    \ graph(n), rgraph(n),\n                                               isVisited(n),\
+    \ ids(n)\n        {\n            order.reserve(n);\n        }\n\n        inline\
+    \ void add_edge (int st, int ed) {\n            graph[st].emplace_back(ed);\n\
+    \        }\n\n        inline void add_edge_rev (int st, int ed) {\n          \
+    \  rgraph[st].emplace_back(ed);\n        }\n\n        void construct_scc()\n \
+    \       {\n            std::fill(isVisited.begin(), isVisited.end(), false);\n\
+    \            std::fill(ids.begin(), ids.end(), -1);\n            order.clear();\n\
+    \            for (int i = 0; i < sccK_n; ++i)\n            {\n               \
+    \ if (!isVisited[i])\n                    dfs(i);\n            }\n           \
+    \ for (int i = sccK_n - 1, id = 0; i >= 0; --i)\n            {\n             \
+    \   if (ids[order[i]] == -1)\n                    rdfs(order[i], id++);\n    \
+    \        }\n        }\n\n    protected:\n        const int sccK_n;\n        std::vector<std::vector<int>>\
+    \ graph, rgraph;\n        std::vector<bool> isVisited;\n        std::vector<int>\
+    \ ids, order;\n\n        void dfs(const int ver)\n        {\n            isVisited[ver]\
+    \ = true;\n            for (const int dst : graph[ver])\n            {\n     \
+    \           if (!isVisited[dst])\n                    dfs(dst);\n            }\n\
+    \            order.emplace_back(ver);\n        }\n\n        void rdfs(const int\
+    \ ver, const int cur_id)\n        {\n            ids[ver] = cur_id;\n        \
+    \    for (const int dst : rgraph[ver])\n            {\n                if (ids[dst]\
+    \ == -1)\n                    rdfs(dst, cur_id);\n            }\n        }\n \
+    \   };\n} // namespace cplayer\n\n#endif // CPLAYER_SCC_KOSARAJU_H"
   dependsOn: []
   isVerificationFile: false
   path: include/cplayer/graph/SCC-Kosaraju.hpp
-  requiredBy: []
-  timestamp: '2023-01-31 09:30:21+00:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy:
+  - include/cplayer/graph/SAT-Kosaraju.hpp
+  timestamp: '2023-02-01 03:16:57+00:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/graph/SAT-Kosaraju.test.cpp
 documentation_of: include/cplayer/graph/SCC-Kosaraju.hpp
 layout: document
 title: "\u5F3A\u8FDE\u901A\u5206\u91CF-Kosaraju"
@@ -89,34 +80,25 @@ title: "\u5F3A\u8FDE\u901A\u5206\u91CF-Kosaraju"
 
 TWO-PASS算法（Kosaraju算法）
 
+## 时间复杂度
+$O(|V|+|E|)$（邻接矩阵）
+
+## 方法
+
+|方法名称|功能|
+|---|---|
+|explicit Kosaraju_Light(const int n)|构造n个顶点的图|
+|inline void add_edge (int st, int ed)|在正向图中从st往ed连一条边|
+|inline void add_edge_rev (int st, int ed)|在转置图中从st往ed连一条边|
+|void construct_scc()|构造强连通分量，分量编号存放在`ids`数组中|
+
 ## 步骤
 
-1. 将原图$G$中的每条边都反向，得到$G^{rev}$;
-2. 在$G^{rev}$中运行`Loop-DFS`，记录每个顶点的完成时间$f(v)$;
-3. 按$f(v)$的降序，在$G$中运行`Loop-DFS`，记录每个顶点的`Leader` $l(v)$。
+1. 深度优先遍历$G$，算出每个结点$u$的结束时间$f[u]$，起点如何选择无所谓。
+2. 深度优先遍历$G$的转置图$G^T$，选择遍历的起点时，按照结点的结束时间从大到小进行。遍历的过程中，一边遍历，一边给结点做分类标记，每找到一个新的起点，分类标记值就加1。
+3. 第2步中产生的标记值相同的结点构成深度优先森林中的一棵树，也即一个强连通分量。
 
-`Loop-DFS`伪代码:
+## 参考文献
 
-```
-全局变量 t = 0
-全局变量 s = NULL
-共有n个顶点，顶点序号为0 ... n-1
-For i = 0 to n-1
-    IF i的标记为'未探索'
-        s = i;
-        DFS(G, i);
-EndFor
-```
-
-`DFS(G, i)`伪代码：
-
-```
-将顶点i标记为'已探索'
-Leader(i) = s
-For i的所有邻居j
-    IF j的标记为'未探索'
-        DFS(G, j);
-    t++;
-    f(i) = t;
-EndFor
-```
+- [wikipedia](https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm)
+- [Topcoder上的讲解](https://www.topcoder.com/thrive/articles/kosarajus-algorithm-for-strongly-connected-components)
