@@ -7,7 +7,7 @@ documentation_of: //include/cplayer/graph/SAT-Kosaraju.hpp
 
 ## 时间复杂度
 
-$O(|V|+|E|)$
+$O(\|V\|+\|E\|)$
 
 ## 方法
 
