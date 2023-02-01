@@ -29,15 +29,15 @@ data:
     \ for (int i = sccK_n - 1, id = 0; i >= 0; --i)\n            {\n             \
     \   if (ids[order[i]] == -1)\n                    rdfs(order[i], id++);\n    \
     \        }\n        }\n\n    protected:\n        const int sccK_n;\n        std::vector<std::vector<int>>\
-    \ graph, rgraph;\n        std::vector<bool> isVisited;\n        std::vector<int>\
+    \ graph, rgraph;\n        std::vector<int> isVisited;\n        std::vector<int>\
     \ ids, order;\n\n        void dfs(const int ver)\n        {\n            isVisited[ver]\
-    \ = true;\n            for (const int dst : graph[ver])\n            {\n     \
-    \           if (!isVisited[dst])\n                    dfs(dst);\n            }\n\
-    \            order.emplace_back(ver);\n        }\n\n        void rdfs(const int\
-    \ ver, const int cur_id)\n        {\n            ids[ver] = cur_id;\n        \
-    \    for (const int dst : rgraph[ver])\n            {\n                if (ids[dst]\
-    \ == -1)\n                    rdfs(dst, cur_id);\n            }\n        }\n \
-    \   };\n} // namespace cplayer\n\n\n"
+    \ = 1;\n            for (const int dst : graph[ver])\n            {\n        \
+    \        if (isVisited[dst] == 0)\n                    dfs(dst);\n           \
+    \ }\n            order.emplace_back(ver);\n        }\n\n        void rdfs(const\
+    \ int ver, const int cur_id)\n        {\n            ids[ver] = cur_id;\n    \
+    \        for (const int dst : rgraph[ver])\n            {\n                if\
+    \ (ids[dst] == -1)\n                    rdfs(dst, cur_id);\n            }\n  \
+    \      }\n    };\n} // namespace cplayer\n\n\n"
   code: "#ifndef CPLAYER_SCC_KOSARAJU_H\n#define CPLAYER_SCC_KOSARAJU_H\n\n#include\
     \ <vector>\n#include <algorithm>\n\nnamespace cplayer\n{\n    class Kosaraju_Light\n\
     \    {\n    public:\n        explicit Kosaraju_Light(const int n) : sccK_n(n),\
@@ -53,21 +53,21 @@ data:
     \ for (int i = sccK_n - 1, id = 0; i >= 0; --i)\n            {\n             \
     \   if (ids[order[i]] == -1)\n                    rdfs(order[i], id++);\n    \
     \        }\n        }\n\n    protected:\n        const int sccK_n;\n        std::vector<std::vector<int>>\
-    \ graph, rgraph;\n        std::vector<bool> isVisited;\n        std::vector<int>\
+    \ graph, rgraph;\n        std::vector<int> isVisited;\n        std::vector<int>\
     \ ids, order;\n\n        void dfs(const int ver)\n        {\n            isVisited[ver]\
-    \ = true;\n            for (const int dst : graph[ver])\n            {\n     \
-    \           if (!isVisited[dst])\n                    dfs(dst);\n            }\n\
-    \            order.emplace_back(ver);\n        }\n\n        void rdfs(const int\
-    \ ver, const int cur_id)\n        {\n            ids[ver] = cur_id;\n        \
-    \    for (const int dst : rgraph[ver])\n            {\n                if (ids[dst]\
-    \ == -1)\n                    rdfs(dst, cur_id);\n            }\n        }\n \
-    \   };\n} // namespace cplayer\n\n#endif // CPLAYER_SCC_KOSARAJU_H"
+    \ = 1;\n            for (const int dst : graph[ver])\n            {\n        \
+    \        if (isVisited[dst] == 0)\n                    dfs(dst);\n           \
+    \ }\n            order.emplace_back(ver);\n        }\n\n        void rdfs(const\
+    \ int ver, const int cur_id)\n        {\n            ids[ver] = cur_id;\n    \
+    \        for (const int dst : rgraph[ver])\n            {\n                if\
+    \ (ids[dst] == -1)\n                    rdfs(dst, cur_id);\n            }\n  \
+    \      }\n    };\n} // namespace cplayer\n\n#endif // CPLAYER_SCC_KOSARAJU_H"
   dependsOn: []
   isVerificationFile: false
   path: include/cplayer/graph/SCC-Kosaraju.hpp
   requiredBy:
   - include/cplayer/graph/SAT-Kosaraju.hpp
-  timestamp: '2023-02-01 03:16:57+00:00'
+  timestamp: '2023-02-01 06:19:55+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/SAT-Kosaraju.test.cpp

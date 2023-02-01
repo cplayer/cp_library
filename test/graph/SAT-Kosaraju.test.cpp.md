@@ -40,18 +40,18 @@ data:
     \    else\n        {\n            --a;\n        }\n        if (b < 0)\n      \
     \  {\n            b = twosat.negate(-b - 1);\n        }\n        else\n      \
     \  {\n            --b;\n        }\n        twosat.add_or(a, b);\n    }\n    const\
-    \ std::vector<bool> ans = twosat.build();\n    std::cout << \"s \";\n    if (ans.empty())\n\
+    \ std::vector<int> ans = twosat.build();\n    std::cout << \"s \";\n    if (ans.empty())\n\
     \    {\n        std::cout << \"UNSATISFIABLE\\n\";\n        return 0;\n    }\n\
     \    std::cout << \"SATISFIABLE\\nv \";\n    for (int i = 0; i < n; ++i)\n   \
-    \ {\n        std::cout << (i + 1) * (ans[i] ? 1 : -1) << ' ';\n    }\n    std::cout\
-    \ << \"0\\n\";\n    return 0;\n}"
+    \ {\n        std::cout << (i + 1) * (ans[i] == 1 ? 1 : -1) << ' ';\n    }\n  \
+    \  std::cout << \"0\\n\";\n    return 0;\n}"
   dependsOn:
   - include/cplayer/graph/SAT-Kosaraju.hpp
   - include/cplayer/graph/SCC-Kosaraju.hpp
   isVerificationFile: true
   path: test/graph/SAT-Kosaraju.test.cpp
   requiredBy: []
-  timestamp: '2023-02-01 03:16:57+00:00'
+  timestamp: '2023-02-01 06:19:55+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/graph/SAT-Kosaraju.test.cpp

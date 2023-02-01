@@ -29,17 +29,17 @@ data:
   code: "#ifndef CPLAYER_SAT_KOSARAJU_H\n#define CPLAYER_SAT_KOSARAJU_H\n\n#include\
     \ \"cplayer/graph/SCC-Kosaraju.hpp\"\n\nnamespace cplayer\n{\n    class TwoSATKosaraju\
     \ : public Kosaraju_Light\n    {\n    public:\n        explicit TwoSATKosaraju(const\
-    \ int n) : Kosaraju_Light(n << 1), satK_n(n) {}\n\n        std::vector<bool> build()\n\
-    \        {\n            construct_scc();\n            std::vector<bool> res(satK_n);\n\
+    \ int n) : Kosaraju_Light(n << 1), satK_n(n) {}\n\n        std::vector<int> build()\n\
+    \        {\n            construct_scc();\n            std::vector<int> res(satK_n);\n\
     \            for (int i = 0; i < satK_n; ++i)\n            {\n               \
     \ if (ids[i] == ids[negate(i)])\n                    return {};\n            \
-    \    res[i] = ids[negate(i)] < ids[i];\n            }\n            return res;\n\
-    \        }\n\n        int negate(const int x) const { return (satK_n + x) % (satK_n\
-    \ << 1); }\n\n        void add_or(const int x, const int y)\n        {\n     \
-    \       add_edge(negate(x), y);\n            add_edge(negate(y), x);\n       \
-    \     add_edge_rev(y, negate(x));\n            add_edge_rev(x, negate(y));\n \
-    \       }\n\n        void add_if(const int x, const int y)\n        {\n      \
-    \      add_or(negate(x), y);\n        }\n\n        void add_nand(const int x,\
+    \    res[i] = ids[negate(i)] < ids[i] ? 1 : -1;\n            }\n            return\
+    \ res;\n        }\n\n        int negate(const int x) const { return (satK_n +\
+    \ x) % (satK_n << 1); }\n\n        void add_or(const int x, const int y)\n   \
+    \     {\n            add_edge(negate(x), y);\n            add_edge(negate(y),\
+    \ x);\n            add_edge_rev(y, negate(x));\n            add_edge_rev(x, negate(y));\n\
+    \        }\n\n        void add_if(const int x, const int y)\n        {\n     \
+    \       add_or(negate(x), y);\n        }\n\n        void add_nand(const int x,\
     \ const int y)\n        {\n            add_or(negate(x), negate(y));\n       \
     \ }\n\n        void set_true(const int x) { add_or(x, x); }\n        void set_false(const\
     \ int x) { set_true(negate(x)); }\n\n    protected:\n        const int satK_n;\n\
@@ -49,7 +49,7 @@ data:
   isVerificationFile: false
   path: include/cplayer/graph/SAT-Kosaraju.hpp
   requiredBy: []
-  timestamp: '2023-02-01 03:16:57+00:00'
+  timestamp: '2023-02-01 06:19:55+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - test/graph/SAT-Kosaraju.test.cpp
@@ -69,7 +69,7 @@ $O(\|V\|+\|E\|)$
 |方法名称|功能|
 |---|---|
 |explicit TwoSATKosaraju (const int n)|构造n个条件的2-SAT问题|
-|std::vector<bool> build()|寻找一个2-SAT问题的解，如果有矛盾返回空序列|
+|std::vector<int> build()|寻找一个2-SAT问题的解，如果有矛盾返回空序列，选中对应节点返回1，否则返回-1|
 |int negate(const int x)|$\lnot x$的顶点号|
 |void add_or(const int x, const int y)|追加$x \lor y$|
 |void add_if(const int x, const int y)|追加$x \Leftarrow y$|
