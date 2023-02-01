@@ -30,3 +30,7 @@ data:
       title: "\u6570\u5B66/$i^k \\bmod m$ ($0 \\leq i \\leq n$)"
 layout: toppage
 ---
+## Documents
+
+- [TODO](https://cplayer.github.io/cp_library/TODO.html)
+- [Notes](https://cplayer.github.io/cp_library/Notes.html)
