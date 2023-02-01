@@ -6,64 +6,42 @@
 
 namespace cplayer
 {
-    class TwoSat
+    class Kosaraju_Light
     {
-        explicit TwoSat(const int n) : n(n), graph(n << 1), rgraph(n << 1),
-                                       isVisited(n << 1), ids(n << 1)
+    public:
+        explicit Kosaraju_Light(const int n) : sccK_n(n), graph(n), rgraph(n),
+                                               isVisited(n), ids(n)
         {
-            order.reserve(n << 1);
+            order.reserve(n);
         }
 
-        int negate(const int x) const { return (n + x) % (n << 1); }
-
-        void add_or(const int x, const int y)
-        {
-            graph[negate(x)].emplace_back(y);
-            graph[negate(y)].emplace_back(x);
-            rgraph[y].emplace_back(negate(x));
-            rgraph[x].emplace_back(negate(y));
+        inline void add_edge (int st, int ed) {
+            graph[st].emplace_back(ed);
         }
 
-        void add_if(const int x, const int y)
-        {
-            add_or(negate(x), y);
+        inline void add_edge_rev (int st, int ed) {
+            rgraph[st].emplace_back(ed);
         }
 
-        void add_nand(const int x, const int y)
-        {
-            add_or(negate(x), negate(y));
-        }
-
-        void set_true(const int x) { add_or(x, x); }
-        void set_false(const int x) { set_true(negate(x)); }
-
-        std::vector<bool> build()
+        void construct_scc()
         {
             std::fill(isVisited.begin(), isVisited.end(), false);
             std::fill(ids.begin(), ids.end(), -1);
             order.clear();
-            for (int i = 0; i < (n << 1); ++i)
+            for (int i = 0; i < sccK_n; ++i)
             {
                 if (!isVisited[i])
                     dfs(i);
             }
-            for (int i = (n << 1) - 1, id = 0; i >= 0; --i)
+            for (int i = sccK_n - 1, id = 0; i >= 0; --i)
             {
                 if (ids[order[i]] == -1)
                     rdfs(order[i], id++);
             }
-            std::vector<bool> res(n);
-            for (int i = 0; i < n; ++i)
-            {
-                if (ids[i] == ids[negate(i)])
-                    return {};
-                res[i] = ids[negate(i)] < ids[i];
-            }
-            return res;
         }
 
-    private:
-        const int n;
+    protected:
+        const int sccK_n;
         std::vector<std::vector<int>> graph, rgraph;
         std::vector<bool> isVisited;
         std::vector<int> ids, order;
