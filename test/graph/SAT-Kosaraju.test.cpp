@@ -38,7 +38,7 @@ int main()
         }
         twosat.add_or(a, b);
     }
-    const std::vector<bool> ans = twosat.build();
+    const std::vector<int> ans = twosat.build();
     std::cout << "s ";
     if (ans.empty())
     {
@@ -48,7 +48,7 @@ int main()
     std::cout << "SATISFIABLE\nv ";
     for (int i = 0; i < n; ++i)
     {
-        std::cout << (i + 1) * (ans[i] ? 1 : -1) << ' ';
+        std::cout << (i + 1) * (ans[i] == 1 ? 1 : -1) << ' ';
     }
     std::cout << "0\n";
     return 0;

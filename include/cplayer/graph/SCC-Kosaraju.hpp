@@ -43,15 +43,15 @@ namespace cplayer
     protected:
         const int sccK_n;
         std::vector<std::vector<int>> graph, rgraph;
-        std::vector<bool> isVisited;
+        std::vector<int> isVisited;
         std::vector<int> ids, order;
 
         void dfs(const int ver)
         {
-            isVisited[ver] = true;
+            isVisited[ver] = 1;
             for (const int dst : graph[ver])
             {
-                if (!isVisited[dst])
+                if (isVisited[dst] == 0)
                     dfs(dst);
             }
             order.emplace_back(ver);

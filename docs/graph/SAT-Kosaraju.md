@@ -14,7 +14,7 @@ $O(\|V\|+\|E\|)$
 |方法名称|功能|
 |---|---|
 |explicit TwoSATKosaraju (const int n)|构造n个条件的2-SAT问题|
-|std::vector<bool> build()|寻找一个2-SAT问题的解，如果有矛盾返回空序列|
+|std::vector<int> build()|寻找一个2-SAT问题的解，如果有矛盾返回空序列，选中对应节点返回1，否则返回-1|
 |int negate(const int x)|$\lnot x$的顶点号|
 |void add_or(const int x, const int y)|追加$x \lor y$|
 |void add_if(const int x, const int y)|追加$x \Leftarrow y$|

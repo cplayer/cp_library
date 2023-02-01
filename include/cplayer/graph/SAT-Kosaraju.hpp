@@ -10,15 +10,15 @@ namespace cplayer
     public:
         explicit TwoSATKosaraju(const int n) : Kosaraju_Light(n << 1), satK_n(n) {}
 
-        std::vector<bool> build()
+        std::vector<int> build()
         {
             construct_scc();
-            std::vector<bool> res(satK_n);
+            std::vector<int> res(satK_n);
             for (int i = 0; i < satK_n; ++i)
             {
                 if (ids[i] == ids[negate(i)])
                     return {};
-                res[i] = ids[negate(i)] < ids[i];
+                res[i] = ids[negate(i)] < ids[i] ? 1 : -1;
             }
             return res;
         }
