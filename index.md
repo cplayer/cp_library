@@ -17,6 +17,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: include/cplayer/math/mod-pow.hpp
       title: "\u4E8C\u5206\u5FEB\u901F\u5E42"
+    - icon: ':warning:'
+      path: include/cplayer/math/prime-factorize-precompute.hpp
+      title: "\u901A\u8FC7\u7B5B\u6CD5\u8FDB\u884C\u591A\u6B21\u56E0\u6570\u5206\u89E3"
   verificationCategories:
   - name: test/graph
     pages:
