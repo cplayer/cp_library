@@ -1,12 +1,12 @@
 import java.io.*;
 import java.util.*;
 
-public class CLASS_NAME {
+public class Jongmah {
     public static void main(String[] args) {
-        Kattio io = new Kattio();
-        Test test = new Test();
-        test.run(io);
-        io.close();
+        try (Kattio io = new Kattio()) {
+            Test test = new Test();
+            test.run(io);
+        }
     }
 
 }
