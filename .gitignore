@@ -1,4 +1,5 @@
-/files/
 /.vscode/*
 /.cph/*
 /cphfiles/*
+*.class
+/*.java
