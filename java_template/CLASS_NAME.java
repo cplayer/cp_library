@@ -5,15 +5,21 @@ public class CLASS_NAME {
     public static void main(String[] args) {
         try (Kattio io = new Kattio()) {
             Test test = new Test();
-            test.run(io);
+            test.setIO(io);
         }
     }
 
 }
 
 class Test {
-    void run(Kattio io) {
+    Kattio io;
+    void setIO(Kattio innerIO) {
+        io = innerIO;
+        run();
+    }
 
+    void run() {
+        
     }
 }
 
