@@ -8,7 +8,6 @@ public class CLASS_NAME {
             test.setIO(io);
         }
     }
-
 }
 
 class Test {
