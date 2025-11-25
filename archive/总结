@@ -1,0 +1,1 @@
+[ABC425_G](https://atcoder.jp/contests/abc425/tasks/abc425_g) -> 只要看到题目中出现 “求 x 与数组 A 中元素的异或最值（最大值或最小值）”，第一反应必须是 01-Trie。这是算法竞赛中的标准套路（Template）。

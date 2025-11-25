@@ -1,2 +1,6 @@
 # 推理
 - [ABC425_D](https://atcoder.jp/contests/abc425/tasks/abc425_d) -> 高效模拟。
+
+# DP
+- [ABC425_F](https://atcoder.jp/contests/abc425/tasks/abc425_f) -> 状态压缩DP+去重
+- [ABC425_G](https://atcoder.jp/contests/abc425/tasks/abc425_g) -> 01-Trie+数位DP
