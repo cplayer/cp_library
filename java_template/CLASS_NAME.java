@@ -1,24 +1,28 @@
 import java.io.*;
 import java.util.*;
 
+import archive.atcoder.abc425.Kattio;
+
 public class CLASS_NAME {
     public static void main(String[] args) {
-        try (Kattio io = new Kattio()) {
-            Test test = new Test();
-            test.setIO(io);
-        }
+        new Thread(null, new Runnable() {
+            public void run() {
+                new CLASS_NAME().run();
+            }
+        }, "run", 1 << 27).start();
     }
-}
 
-class Test {
     Kattio io;
-    void setIO(Kattio innerIO) {
-        io = innerIO;
-        run();
-    }
 
     void run() {
-        
+        io = new Kattio();
+        solve();
+        io.close();
+    }
+
+    /* 核心逻辑 */
+    void solve() {
+
     }
 }
 
@@ -42,12 +46,15 @@ class Kattio extends PrintWriter {
 
     public String next() {
         try {
-            while (st == null || !st.hasMoreTokens())
-                st = new StringTokenizer(r.readLine());
+            while (st == null || !st.hasMoreTokens()) {
+                String line = r.readLine();
+                if (line == null) return null;
+                st = new StringTokenizer(line);
+            }
             return st.nextToken();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public int nextInt() {
@@ -60,5 +67,17 @@ class Kattio extends PrintWriter {
 
     public long nextLong() {
         return Long.parseLong(next());
+    }
+
+    public int[] nextIntArray(int n) {
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) a[i] = nextInt();
+        return a;
+    }
+    
+    public long[] nextLongArray(int n) {
+        long[] a = new long[n];
+        for (int i = 0; i < n; i++) a[i] = nextLong();
+        return a;
     }
 }
