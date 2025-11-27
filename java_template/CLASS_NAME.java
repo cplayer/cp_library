@@ -1,8 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-import archive.atcoder.abc425.Kattio;
-
 public class CLASS_NAME {
     public static void main(String[] args) {
         new Thread(null, new Runnable() {
