@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class CLASS_NAME {
+public class abc433b {
     public static void main(String[] args) {
         new Thread(null, new Runnable() {
             public void run() {
@@ -22,7 +22,21 @@ class Solution {
 
     /* 核心逻辑 */
     void solve() {
-
+        int n = io.nextInt();
+        int[] a = io.nextIntArray(n);
+        Stack<Integer> stk = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            while (!stk.isEmpty() && a[stk.peek()] <= a[i]) {
+                stk.pop();
+            }
+            if (stk.isEmpty()) {
+                io.println(-1);
+                stk.push(i);
+            } else {
+                io.println(stk.peek()+1);
+                stk.push(i);
+            }
+        }
     }
 }
 

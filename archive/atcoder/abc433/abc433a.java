@@ -1,17 +1,15 @@
 import java.io.*;
 import java.util.*;
 
-public class CLASS_NAME {
+public class abc433a {
     public static void main(String[] args) {
         new Thread(null, new Runnable() {
             public void run() {
-                new Solution().run();
+                new abc433a().run();
             }
         }, "run", 1 << 27).start();
     }
-}
 
-class Solution {
     Kattio io;
 
     void run() {
@@ -22,7 +20,12 @@ class Solution {
 
     /* 核心逻辑 */
     void solve() {
-
+        int x = io.nextInt(), y = io.nextInt(), z = io.nextInt();
+        if ((x-z*y) % (z-1) == 0 && x>=z*y) {
+            io.println("Yes");
+        } else {
+            io.println("No");
+        }
     }
 }
 
