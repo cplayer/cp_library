@@ -7,3 +7,6 @@
 
 # 字符串
 - [ABC433_C](https://atcoder.jp/contests/abc433/tasks/abc433_c) -> 游程编码 (Run-Length Encoding, RLE)，即连续段分组
+
+# 数学
+- [ABC433_D](https://atcoder.jp/contests/abc433/tasks/abc433_d) -> **同余方程转换**+哈希计数
