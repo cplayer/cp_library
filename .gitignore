@@ -3,3 +3,5 @@
 /cphfiles/*
 /*.class
 /*.java
+**/Main.java
+**/*.class
