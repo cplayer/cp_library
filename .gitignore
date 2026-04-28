@@ -1,7 +1,15 @@
-/.vscode/*
-/.cph/*
-/cphfiles/*
-/*.class
+# 1. 忽略 cph 和 VS Code 相关的隐藏文件夹
+/.vscode/
+/.cph/
+/cphfiles/
+
+# 2. 忽略根目录下的所有 Java 源文件（防止 cph 自动生成的 Main.java 等干扰）
 /*.java
-**/Main.java
-**/*.class
+
+# 3. 忽略项目中所有位置产生的编译文件
+*.class
+bin/
+out/
+
+# 4. 忽略压力测试文件夹
+/stress/

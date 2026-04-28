@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class CLASS_NAME {
+public class zoj3655 {
     public static void main(String[] args) {
         new Thread(null, new Runnable() {
             public void run() {
@@ -22,6 +22,50 @@ class Solution {
 
     /* 核心逻辑 */
     void solve() {
+        while (io.hasNext()) {
+            int n = io.nextInt();
+            long l = io.nextLong(), r = io.nextLong();
+            long ac = io.nextLong(), bc = io.nextLong();
+            long[] p = io.nextLongArray(n);
+            int left = 0, right = n;
+            while (left < right) {
+                int mid = (left+right+1)/2;
+                if (judge(n, mid, l, r, ac, bc, p)) {
+                    left = mid;
+                } else {
+                    right = mid-1;
+                }
+            }
+            io.println(left);
+        }
+    }
+
+    boolean judge(int n, int m, long l, long r, long ac, long bc, long[] p) {
+        long[] sl = new long[n];
+        long[] sr = new long[n];
+        boolean[] valid = new boolean[n];
+        long w = ac - bc;
+        for (int i = 0; i <= n-m; i++) {
+            sl[i] = p[i+m-1]-w+1;
+            sr[i] = p[i];
+            if (sl[i] <= sr[i]) {
+                valid[i] = true;
+            }
+        }
+        for (int i = 0; i <= n-m; i++) {
+            if (valid[i]) {
+                if (i > 0 && valid[i-1] && sl[i] <= sr[i-1]+1) {
+                    sl[i] = sl[i-1];
+                }
+                if (Math.max(l, sl[i]) <= Math.min(r-ac+1, sr[i]-bc)) {
+                    return true;
+                }
+                // if (sr[i] - sl[i] + 1 >= bc) {
+                //     return true;
+                // }
+            }
+        }
+        return false;
 
     }
 }
