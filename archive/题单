@@ -10,3 +10,6 @@
 
 # 数学
 - [ABC433_D](https://atcoder.jp/contests/abc433/tasks/abc433_d) -> **同余方程转换**+哈希计数
+
+# 二分与贪心
+- [ZOJ3655_Alice_and_Bob] -> 二分答案+贪心区间合并+化连续为离散（点思维）

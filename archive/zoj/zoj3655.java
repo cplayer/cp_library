@@ -57,7 +57,8 @@ class Solution {
                 if (i > 0 && valid[i-1] && sl[i] <= sr[i-1]+1) {
                     sl[i] = sl[i-1];
                 }
-                if (Math.max(l, sl[i]) <= Math.min(r-ac+1, sr[i]-bc)) {
+                long maxR = ac == 0 ? r : r-ac+1;
+                if (Math.max(l, sl[i]) <= Math.min(maxR, sr[i]-bc)) {
                     return true;
                 }
                 // if (sr[i] - sl[i] + 1 >= bc) {
