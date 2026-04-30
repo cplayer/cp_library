@@ -18,3 +18,9 @@
 
 # 位运算与构造 (Bitwise & Construction)
 - [HDU4421_Bit_Magic] -> **降维打击/2-SAT替代方案**：按位独立拆解 + 异或链条推导 + 全局合法性验算。
+
+# 贪心与并查集 (Greedy & DSU)
+- [ZOJ3659 / HDU4424_Conquer_a_New_Region] -> **Kruskal重构树降维 / 逆向并查集**：处理“路径瓶颈（木桶效应）”求极值问题。视角翻转：不枚举节点，而是将边按权值降序合并，利用并查集动态维护连通块的 `size` 和 `dp` 最优解。
+
+# 图论与组合计数 (Graph Theory & Combinatorial Counting)
+- [HDU4425_Fantastic_Necklace] -> **函数图找环 + 树同构 DP + Burnside/Polya 计数**：将唯一环函数图拆成“主环 + 入树森林”，拓扑删叶子自底向上计算树型与树枝方案；同构儿子用多重集合组合数 `C(dp+c-1,c)` 合并；环上枚举旋转周期，用环染色公式 `(m-1)^d + (-1)^d(m-1)` 统计相邻不同色的旋转等价方案。Java 实现重点是反图用链式前向星、临时数组避免 MLE。
